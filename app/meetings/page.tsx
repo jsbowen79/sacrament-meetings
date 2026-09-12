@@ -5,7 +5,11 @@ import { SacramentMeeting } from '@/lib/types';
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  const response = await fetch(`${process.env.BASE_URL}/api/meetings`);
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : process.env.BASE_URL;
+
+  const response = await fetch(`${baseUrl}/api/meetings`);
   const meetings = await response.json();
 
   return (

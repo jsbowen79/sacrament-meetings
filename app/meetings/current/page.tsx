@@ -4,20 +4,13 @@ import Image from 'next/image';
 export const dynamic = 'force-dynamic';
 
 export default async function Current() {
-  // const response = await fetch(`${process.env.BASE_URL}/api/meetings/current`);
-  // const meeting = await response.json();
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : process.env.BASE_URL;
 
-  const url = `${process.env.BASE_URL}/api/meetings/current`;
-
-  const response = await fetch(url);
-
-  console.log('FETCH URL:', url);
-  console.log('STATUS:', response.status);
-  console.log('CONTENT TYPE:', response.headers.get('content-type'));
+  const response = await fetch(`${baseUrl}/api/meetings/current`);
 
   const text = await response.text();
-
-  console.log('RESPONSE:', text.substring(0, 500));
 
   const meeting = JSON.parse(text);
 
