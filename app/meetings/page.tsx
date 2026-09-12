@@ -9,8 +9,21 @@ export default async function Home() {
     ? `https://${process.env.VERCEL_URL}`
     : process.env.BASE_URL;
 
-  const response = await fetch(`${baseUrl}/api/meetings`);
-  const meetings = await response.json();
+  // const response = await fetch(`${baseUrl}/api/meetings`);
+  // const meetings = await response.json();
+
+  const url = `${baseUrl}/api/meetings`;
+
+  const response = await fetch(url);
+  const text = await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      `Fetch failed: ${response.status} ${response.statusText} - ${url} - ${text.substring(0, 200)}`,
+    );
+  }
+
+  const meetings = JSON.parse(text);
 
   return (
     <div className="flex flex-col flex-1 items-center dark:bg-black">
