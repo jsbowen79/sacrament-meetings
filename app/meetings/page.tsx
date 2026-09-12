@@ -5,30 +5,11 @@ import { SacramentMeeting } from '@/lib/types';
 export const dynamic = 'force-dynamic';
 
 export default async function Home() {
-  // const baseUrl = process.env.VERCEL_URL
-  //   ? `https://${process.env.VERCEL_URL}`
-  //   : process.env.BASE_URL;
-
-  // const response = await fetch(`${baseUrl}/api/meetings`);
-  // const meetings = await response.json();
   const baseUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
     : process.env.BASE_URL;
 
   const response = await fetch(`${baseUrl}/api/meetings`);
-
-  if (!response.ok) {
-    throw new Error(`API returned ${response.status}: ${response.url}`);
-  }
-
-  const contentType = response.headers.get('content-type');
-
-  if (!contentType?.includes('application/json')) {
-    throw new Error(
-      `Expected JSON but received ${contentType} from ${response.url}`,
-    );
-  }
-
   const meetings = await response.json();
 
   return (
