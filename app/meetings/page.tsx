@@ -1,6 +1,9 @@
 import Image from 'next/image';
 import MeetingCard from '@/components/MeetingCard';
 import { SacramentMeeting } from '@/lib/types';
+
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const response = await fetch(`${process.env.BASE_URL}/api/meetings`);
   const meetings = await response.json();

@@ -1,6 +1,8 @@
 import MeetingSearch from '@/components/MeetingSearch';
 import Image from 'next/image';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Current() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center dark:bg-black">

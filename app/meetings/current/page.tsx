@@ -1,6 +1,8 @@
 import MeetingDetail from '@/components/MeetingDetail';
 import Image from 'next/image';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Current() {
   const response = await fetch(`${process.env.BASE_URL}/api/meetings/current`);
   const meeting = await response.json();
