@@ -31,10 +31,10 @@ export async function getMeetingById(
 }
 
 export async function getMeetings(
+  date: string = '',
   query: string = '',
   currentPage: number = 1,
 ): Promise<SacramentMeeting[]> {
-  const searchTerm = `%${query}%`;
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   const meetings = await sql`
@@ -54,11 +54,15 @@ export async function getMeetings(
     closing_hymn AS "closingHymn",
     closing_prayer AS "closingPrayer"
   FROM meetings
-  WHERE 
-  presiding  ILIKE ${searchTerm}
-  OR conducting ILIKE ${searchTerm}
-  OR meeting_Type ILIKE ${searchTerm}
-  OR speakers::text ILIKE ${searchTerm}
+  WHERE
+  (${date} = '' OR date::text = ${date})
+  AND
+  (${query} = '' OR (
+    presiding ILIKE ${`%${query}%`}
+    OR conducting ILIKE ${`%${query}%`}
+    OR meeting_type ILIKE ${`%${query}%`}
+    OR speakers::text ILIKE ${`%${query}%`}
+  ))
   ORDER BY date DESC
   LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
 `;

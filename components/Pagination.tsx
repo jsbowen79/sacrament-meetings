@@ -13,8 +13,11 @@ export function Pagination({ totalPages }: { totalPages: number }) {
     return `${pathname}?${params.toString()}`;
   }
   return (
-    <nav aria-label="Pagination" className="h-[60px] flex items-center">
-      <div className="my-auto">
+    <nav
+      aria-label="Pagination"
+      className="h-[60px] flex items-center basis-full w-full flex justify-center"
+    >
+      <div className="items-center w-full flex basis-full justify-center">
         {totalPages > 1 && (
           <Link
             href={createPageURL(currentPage - 1)}
