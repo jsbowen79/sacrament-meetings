@@ -41,6 +41,10 @@ export default async function Home() {
               <MeetingCard meeting={meeting} />
             </div>
           ))}
+          <div>
+            <button>&lt;&lt;Previous</button>
+            <button>Next&gt;&gt; </button>
+          </div>
         </section>
       </main>
     </div>

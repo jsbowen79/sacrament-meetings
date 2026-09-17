@@ -1,49 +1,34 @@
 'use client';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
+import { useDebouncedCallback } from 'use-debounce';
 
-import { useState } from 'react';
-import MeetingDetail from './MeetingDetail';
-import { SacramentMeeting } from '@/lib/types';
+export function MeetingSearch() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
 
-export default function MeetingSearch() {
-  const [id, setId] = useState('');
-  const [meeting, setMeeting] = useState<SacramentMeeting | null>(null);
-  const [error, setError] = useState('');
-
-  async function searchMeeting() {
-    setError('');
-    setMeeting(null);
-
-    const response = await fetch(`/api/meetings/${id}`);
-
-    if (!response.ok) {
-      setError('Meeting not found.');
-      return;
+  const handleSearch = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set('page', '1');
+    if (term) {
+      params.set('query', term);
+    } else {
+      params.delete('query');
     }
+    replace(`${pathname}?${params.toString()}`);
+  }, 300);
 
-    const meeting = await response.json();
-    setMeeting(meeting);
-  }
   return (
-    <section>
-      <label htmlFor="meeting-id"> Enter Meeting ID</label>
-
+    <section className="bg-white text-3xl border w-95%] m-2 p-2 grid grid-cols-[1fr_3fr] gap 2">
+      <label htmlFor="search">Search Term</label>
       <input
-        id="meeting-id"
-        type="number"
-        value={id}
-        onChange={(event) => setId(event.target.value)}
-        className="border-2 border-black p-2 m-2"
+        id="search"
+        type="search"
+        placeholder="Search by speaker, leader, or meeting type..."
+        defaultValue={searchParams.get('query')?.toString()}
+        onChange={(e) => handleSearch(e.target.value)}
+        aria-label="Search meetings"
       />
-
-      <button
-        onClick={searchMeeting}
-        className="bg-[var(--church-blue-dark)] text-white border rounded-lg p-2"
-      >
-        Search
-      </button>
-      {error && <p>{error}</p>}
-
-      {meeting && <MeetingDetail meeting={meeting} />}
     </section>
   );
 }

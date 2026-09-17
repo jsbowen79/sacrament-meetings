@@ -1,5 +1,12 @@
+import type { Metadata } from 'next';
 import MeetingDetail from '@/components/MeetingDetail';
 import Image from 'next/image';
+import { SacramentMeeting } from '@/lib/types';
+
+export const metadata: Metadata = {
+  title: 'Sacrament Meeting Tracker - Current Meeting',
+  description: "Retrieve the Current or next meeting's information.",
+};
 
 export const dynamic = 'force-dynamic';
 
@@ -10,9 +17,11 @@ export default async function Current() {
 
   const response = await fetch(`${baseUrl}/api/meetings/current`);
 
-  const text = await response.text();
+  const meeting: SacramentMeeting | null = await response.json();
 
-  const meeting = JSON.parse(text);
+  // const text = await response.text();
+
+  // const meeting = JSON.parse(text);
 
   if (meeting == null) {
     return (

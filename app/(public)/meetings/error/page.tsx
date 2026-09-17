@@ -1,3 +1,10 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Sacrament Meeting Tracker - Failure to add',
+  description: 'The meeting was not added to the Database',
+};
+
 export default function MeetingAdded() {
   return (
     <main className="flex flex-col items-center justify-center">

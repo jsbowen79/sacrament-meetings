@@ -3,13 +3,13 @@
 import { redirect } from 'next/navigation';
 import { useState } from 'react';
 import {
-  SacramentMeeting,
+  NewMeeting,
   MeetingType,
   WardBusinessItem,
   SpeakerItem,
 } from '@/lib/types';
 
-export default function NewMeeting() {
+export default function CreateNewMeeting() {
   const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
   const [meetingType, setMeetingType] = useState('regular' as MeetingType);
   const [presiding, setPresiding] = useState('Joseph Salas');
@@ -84,8 +84,7 @@ export default function NewMeeting() {
       title: closingHymnTitle,
     };
 
-    const newMeeting: SacramentMeeting = {
-      id: 0,
+    const meeting: NewMeeting = {
       date: date,
       meetingType: meetingType,
       presiding: presiding,
@@ -105,7 +104,7 @@ export default function NewMeeting() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newMeeting),
+      body: JSON.stringify(meeting),
     });
     if (!response.ok) {
       console.log('Failed to add Meeting');

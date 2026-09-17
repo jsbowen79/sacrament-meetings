@@ -1,20 +1,17 @@
 import { NextResponse } from 'next/server';
-import { meetings } from '@/lib/meetings-db';
-import { SacramentMeeting } from '@/lib/types';
+import { getMeetings, insertMeeting } from '@/lib/meetings-db';
+import { SacramentMeeting, NewMeeting } from '@/lib/types';
 
 export async function GET() {
+  const meetings = await getMeetings();
+
   return NextResponse.json(meetings);
 }
 
 export async function POST(request: Request) {
-  const data = await request.json();
+  const newMeeting: NewMeeting = await request.json();
 
-  const newMeeting: SacramentMeeting = {
-    id: meetings.length + 1,
-    ...data,
-  };
+  const response: SacramentMeeting = await insertMeeting(newMeeting);
 
-  meetings.push(newMeeting);
-
-  return NextResponse.json(newMeeting, { status: 201 });
+  return NextResponse.json(response, { status: 201 });
 }
