@@ -26,7 +26,6 @@ export async function getMeetingById(
     FROM meetings
     WHERE id = ${id}
   `;
-  console.log('Meeting: ', meetings[0]);
   return meetings[0] as SacramentMeeting | undefined;
 }
 

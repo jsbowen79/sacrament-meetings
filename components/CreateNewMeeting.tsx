@@ -107,10 +107,8 @@ export default function CreateNewMeeting() {
       body: JSON.stringify(meeting),
     });
     if (!response.ok) {
-      console.log('Failed to add Meeting');
       redirect('/meetings/error');
     }
-    console.log('Meeting added Successfully');
     redirect('/meetings/added');
   }
 

@@ -14,7 +14,6 @@ export async function GET(
   }
 
   const meeting = await getMeetingById(meetingId);
-  console.log('Meeting in route: ', meeting);
 
   if (!meeting) {
     return NextResponse.json({ error: 'Meeting not found' }, { status: 404 });
