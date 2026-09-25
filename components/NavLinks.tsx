@@ -5,14 +5,20 @@ import { usePathname } from 'next/navigation';
 
 export default function NavLinks() {
   const pathname = usePathname();
+
   return (
-    <nav aria-label="Primary" className="nav">
-      <ul className="flex gap-6 width-full justify-between m-2">
+    <nav
+      aria-label="Primary"
+      className="nav mx-auto mt-4 w-4/5 text-lg md:text-xl"
+    >
+      <ul className="flex list-none flex-wrap items-center justify-between gap-3 p-0">
         <li>
           <Link
             href="/meetings"
-            className={pathname === '/meetings' ? 'active' : ''}
-            aria-current={pathname === '/' ? 'page' : undefined}
+            aria-current={pathname === '/meetings' ? 'page' : undefined}
+            className={`text-lg text-white hover:text-[#dff7ff] hover:no-underline md:text-xl ${
+              pathname === '/meetings' ? 'font-semibold underline' : ''
+            }`}
           >
             Home
           </Link>
@@ -20,8 +26,10 @@ export default function NavLinks() {
         <li>
           <Link
             href="/meetings/current"
-            className={pathname === '/current' ? 'active' : ''}
-            aria-current={pathname === '/current' ? 'page' : undefined}
+            aria-current={pathname === '/meetings/current' ? 'page' : undefined}
+            className={`text-lg text-white hover:text-[#dff7ff] hover:no-underline md:text-xl ${
+              pathname === '/meetings/current' ? 'font-semibold underline' : ''
+            }`}
           >
             Current
           </Link>
@@ -29,8 +37,10 @@ export default function NavLinks() {
         <li>
           <Link
             href="/meetings/search"
-            className={pathname === '/previous' ? 'active' : ''}
-            aria-current={pathname === '/previous' ? 'page' : undefined}
+            aria-current={pathname === '/meetings/search' ? 'page' : undefined}
+            className={`text-lg text-white hover:text-[#dff7ff] hover:no-underline md:text-xl ${
+              pathname === '/meetings/search' ? 'font-semibold underline' : ''
+            }`}
           >
             Find a Meeting
           </Link>
@@ -38,10 +48,12 @@ export default function NavLinks() {
         <li>
           <Link
             href="/meetings/new"
-            className={pathname === '/previous' ? 'active' : ''}
-            aria-label={pathname === '/previous' ? 'page' : undefined}
+            aria-current={pathname === '/meetings/new' ? 'page' : undefined}
+            className={`text-lg text-white hover:text-[#dff7ff] hover:no-underline md:text-xl ${
+              pathname === '/meetings/new' ? 'font-semibold underline' : ''
+            }`}
           >
-            Manage
+            New Meeting
           </Link>
         </li>
       </ul>

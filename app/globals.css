@@ -3,17 +3,18 @@
 :root {
   --church-blue-dark: #005175;
   --church-blue: #007da5;
-  --church-blue-light: #49cce6;
+  --church-blue-light: #dff7ff;
 
-  --church-gray-dark: #53575b;
-  --church-gray: #878a8c;
-  --church-gray-light: #e0e2e2;
+  --church-gray-dark: #2f3a40;
+  --church-gray: #475569;
+  --church-gray-light: #e5e7eb;
 
-  --background: #ffffff;
-  --foreground: #000000;
+  --background: #f8fafc;
+  --foreground: #111827;
 
-  --border: #474e4e;
-  --muted: #53575b;
+  --border: #1f2937;
+  --muted: #475569;
+  --error-text: #991b1b;
 }
 
 * {
@@ -24,47 +25,87 @@ html,
 body {
   margin: 0;
   padding: 0;
+  min-height: 100%;
+  background: var(--background);
+  color: var(--foreground);
 }
 
-/* Headings */
+body {
+  line-height: 1.5;
+}
+
 h1,
 h2,
 h3,
 h4 {
   font-family: Georgia, 'Times New Roman', serif;
   line-height: 1.2;
+  margin: 0;
 }
 
-/* Links */
-a {
-  height: 40px;
+p {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+label {
+  display: block;
+  margin: 0.5rem 0;
   color: var(--church-blue-dark);
+  font-weight: 600;
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 2px solid var(--border);
+  border-radius: 0.625rem;
+  background-color: #ffffff;
+  color: var(--foreground);
+  padding: 0.625rem 0.75rem;
+  margin: 0.5rem 0;
+}
+
+button {
+  border: none;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+button:hover {
+  opacity: 0.96;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 3px solid #0f766e;
+  outline-offset: 2px;
+}
+
+a {
+  color: inherit;
   text-decoration: none;
 }
 
 a:hover {
-  color: Green;
+  color: inherit;
   text-decoration: underline;
-}
-
-.app-header {
-  background-color: var(--church-blue-dark);
-  color: white;
-}
-
-.app-header a,
-.nav {
-  color: white;
-}
-
-.app-header a:hover,
-.nav:hover {
-  color: var(--church-blue-light);
-}
-
-.card {
-  background-color: #e5f7fb;
-  border: 1px solid var(--border);
-  border-radius: 0.375rem;
-  padding: 1.25rem;
 }

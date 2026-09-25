@@ -4,11 +4,10 @@ import { SacramentMeeting, NewMeeting } from '@/lib/types';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const date = searchParams.get('date') ?? '';
   const query = searchParams.get('query') ?? '';
   const currentPage = Number(searchParams.get('page') ?? '1');
 
-  const meetings = await getMeetings(date, query, currentPage);
+  const meetings = await getMeetings(query, currentPage);
 
   return NextResponse.json(meetings);
 }

@@ -7,32 +7,33 @@ export function Pagination({ totalPages }: { totalPages: number }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const currentPage = Number(searchParams.get('page')) || 1;
+
   function createPageURL(page: number) {
     const params = new URLSearchParams(searchParams);
     params.set('page', String(page));
     return `${pathname}?${params.toString()}`;
   }
+
   return (
-    <nav
-      aria-label="Pagination"
-      className="h-[60px] flex items-center basis-full w-full flex justify-center"
-    >
-      <div className="items-center w-full flex basis-full justify-center">
-        {totalPages > 1 && (
+    <nav aria-label="Pagination" className="w-full px-3 py-4">
+      <div className="flex items-center justify-center gap-3">
+        {totalPages > 1 && currentPage > 1 && (
           <Link
             href={createPageURL(currentPage - 1)}
-            className="mx-2 h-[40px] border p-2 m-2 my-auto"
+            className="inline-flex w-24 items-center justify-center rounded-md border border-[var(--church-blue-dark)] bg-[var(--church-blue-light)] px-3 py-2 text-sm font-medium text-[var(--church-blue-dark)] hover:bg-[var(--church-blue-dark)] hover:!text-white hover:no-underline hover:opacity-100"
           >
             Previous
           </Link>
         )}
-        <span className="my-auto mx-2">
+
+        <span className="text-sm font-medium text-[var(--church-gray-dark)]">
           Page {currentPage} of {totalPages}
         </span>
+
         {currentPage < totalPages && (
           <Link
             href={createPageURL(currentPage + 1)}
-            className="my-auto mx-2 border text-white p-2"
+            className="inline-flex w-24 items-center justify-center rounded-md border border-[var(--church-blue-dark)] bg-[var(--church-blue-light)] px-3 py-2 text-sm font-medium text-[var(--church-blue-dark)] hover:bg-[var(--church-blue-dark)] hover:!text-white hover:no-underline hover:opacity-100"
           >
             Next
           </Link>

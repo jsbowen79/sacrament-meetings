@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import MeetingDetail from '@/components/MeetingDetail';
 import Image from 'next/image';
-import { SacramentMeeting } from '@/lib/types';
+import { getCurrentMeeting } from '@/lib/meetings-db';
 
 export const metadata: Metadata = {
   title: 'Sacrament Meeting Tracker - Current Meeting',
@@ -11,17 +11,7 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function Current() {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : process.env.BASE_URL;
-
-  const response = await fetch(`${baseUrl}/api/meetings/current`);
-
-  const meeting: SacramentMeeting | null = await response.json();
-
-  // const text = await response.text();
-
-  // const meeting = JSON.parse(text);
+  const meeting = await getCurrentMeeting();
 
   if (meeting == null) {
     return (

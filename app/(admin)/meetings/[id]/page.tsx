@@ -1,5 +1,6 @@
 import MeetingDetail from '@/components/MeetingDetail';
 import Image from 'next/image';
+import { getMeetingById } from '@/lib/meetings-db';
 
 export default async function MeetingById({
   params,
@@ -8,9 +9,7 @@ export default async function MeetingById({
 }) {
   const { id } = await params;
 
-  const response = await fetch(`${process.env.BASE_URL}/api/meetings/${id}`);
-
-  const meeting = await response.json();
+  const meeting = await getMeetingById(Number(id));
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center dark:bg-black">
