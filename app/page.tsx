@@ -1,11 +1,14 @@
 import { MeetingSearch } from '@/components/MeetingSearch';
 import Image from 'next/image';
+import { Suspense } from 'react';
 
 export default function HomePage() {
   return (
     <section className="flex w-full flex-wrap justify-center gap-4">
       <div className="basis-full w-full">
-        <MeetingSearch />
+        <Suspense fallback={<div className="h-20 w-full" />}>
+          <MeetingSearch />
+        </Suspense>
       </div>
       <figure className="w-full max-w-[500px]">
         <Image
