@@ -30,7 +30,7 @@ export default async function MeetingsPage(props: {
         ))}
       </div>
 
-      <Pagination totalPages={totalPages} />
+      {totalPages > 1 && <Pagination totalPages={totalPages} />}
     </div>
   );
 }

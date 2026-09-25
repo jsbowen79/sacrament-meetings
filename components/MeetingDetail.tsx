@@ -104,7 +104,7 @@ export default function MeetingDetail({ meeting }: MeetingDetailProps) {
         <form action={deleteMeeting.bind(null, meeting.id)}>
           <button
             type="submit"
-            className="mt-2 w-full rounded-[0.625rem] border border-[#991b1b] bg-[#991b1b] px-4 py-3 font-semibold text-white hover:bg-[#fecaca] hover:!text-[#7f1d1d] hover:opacity-100"
+            className="mt-2 w-full rounded-[0.625rem] border border-[#991b1b] bg-[#991b1b] px-4 py-3 font-semibold text-white hover:bg-[#fecaca] hover:!font-bold hover:!text-black hover:opacity-100"
           >
             Delete Meeting
           </button>

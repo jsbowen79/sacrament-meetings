@@ -9,13 +9,14 @@ export function MeetingSearch() {
 
   const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
+    const targetPath = pathname === '/' ? '/meetings/search' : pathname;
     params.set('page', '1');
     if (term) {
       params.set('query', term);
     } else {
       params.delete('query');
     }
-    replace(`${pathname}?${params.toString()}`);
+    replace(`${targetPath}?${params.toString()}`);
   }, 300);
 
   return (

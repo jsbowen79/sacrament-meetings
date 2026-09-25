@@ -14,10 +14,10 @@ export default function NavLinks() {
       <ul className="flex list-none flex-wrap items-center justify-between gap-3 p-0">
         <li>
           <Link
-            href="/meetings"
-            aria-current={pathname === '/meetings' ? 'page' : undefined}
+            href="/"
+            aria-current={pathname === '/' ? 'page' : undefined}
             className={`text-lg text-white hover:text-[#dff7ff] hover:no-underline md:text-xl ${
-              pathname === '/meetings' ? 'font-semibold underline' : ''
+              pathname === '/' ? 'font-semibold underline' : ''
             }`}
           >
             Home

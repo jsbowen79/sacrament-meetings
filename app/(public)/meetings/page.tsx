@@ -25,9 +25,11 @@ export default async function MeetingsPage(props: {
           <MeetingCard key={m.id} meeting={m} />
         ))}
       </div>
-      <div className="basis-full w-full ">
-        <Pagination totalPages={totalPages} />
-      </div>
+      {totalPages > 1 && (
+        <div className="basis-full w-full">
+          <Pagination totalPages={totalPages} />
+        </div>
+      )}
     </section>
   );
 }

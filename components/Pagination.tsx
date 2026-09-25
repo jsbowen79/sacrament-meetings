@@ -14,6 +14,10 @@ export function Pagination({ totalPages }: { totalPages: number }) {
     return `${pathname}?${params.toString()}`;
   }
 
+  if (totalPages <= 1) {
+    return null;
+  }
+
   return (
     <nav aria-label="Pagination" className="w-full px-3 py-4">
       <div className="flex items-center justify-center gap-3">
