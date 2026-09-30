@@ -2,6 +2,13 @@ import { getMeetings, getMeetingsTotalPages } from '@/lib/meetings-db';
 import { MeetingSearch } from '@/components/MeetingSearch';
 import MeetingCard from '@/components/MeetingCard';
 import { Pagination } from '@/components/Pagination';
+import { auth } from '@/lib/auth';
+import { createPageMetadata } from '@/lib/metadata';
+
+export const metadata = createPageMetadata(
+  'Sacrament Meetings',
+  'Browse sacrament meeting agendas and records for your ward.',
+);
 
 export default async function MeetingsPage(props: {
   searchParams?: Promise<{ query?: string; page?: string }>;
@@ -10,9 +17,10 @@ export default async function MeetingsPage(props: {
   const query = searchParams?.query ?? '';
   const currentPage = Number(searchParams?.page) || 1;
 
-  const [meetings, totalPages] = await Promise.all([
+  const [meetings, totalPages, session] = await Promise.all([
     getMeetings(query, currentPage),
     getMeetingsTotalPages(query),
+    auth(),
   ]);
 
   return (
@@ -22,7 +30,11 @@ export default async function MeetingsPage(props: {
       </div>
       <div className="basis-full flex flex-wrap gap-4 justify-center ">
         {meetings.map((m) => (
-          <MeetingCard key={m.id} meeting={m} />
+          <MeetingCard
+            key={m.id}
+            meeting={m}
+            isAuthenticated={Boolean(session)}
+          />
         ))}
       </div>
       {totalPages > 1 && (

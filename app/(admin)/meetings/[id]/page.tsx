@@ -1,6 +1,40 @@
+import { cache } from 'react';
+import type { Metadata } from 'next';
 import MeetingDetail from '@/components/MeetingDetail';
 import Image from 'next/image';
 import { getMeetingById } from '@/lib/meetings-db';
+import { createPageMetadata } from '@/lib/metadata';
+
+const getCachedMeeting = cache(getMeetingById);
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const meeting = await getCachedMeeting(Number(id));
+
+  if (!meeting) {
+    return createPageMetadata(
+      'Meeting Not Found',
+      'The requested sacrament meeting record could not be found.',
+      true,
+    );
+  }
+
+  const meetingDate = new Date(`${meeting.date}T00:00:00`).toLocaleDateString(
+    'en-US',
+    { dateStyle: 'long' },
+  );
+  const meetingType = `${meeting.meetingType[0].toUpperCase()}${meeting.meetingType.slice(1)}`;
+
+  return createPageMetadata(
+    `${meetingType} Meeting - ${meetingDate}`,
+    `View the ${meetingType.toLowerCase()} sacrament meeting agenda for ${meetingDate}.`,
+    true,
+  );
+}
 
 export default async function MeetingById({
   params,
@@ -9,7 +43,7 @@ export default async function MeetingById({
 }) {
   const { id } = await params;
 
-  const meeting = await getMeetingById(Number(id));
+  const meeting = await getCachedMeeting(Number(id));
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center dark:bg-black">

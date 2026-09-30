@@ -16,6 +16,14 @@ export interface WardBusinessItem {
   description: string;
 }
 
+export enum Calling {
+  bishop,
+  bishopric1stCounselor,
+  bishopric2ndCounselor,
+  bishopricExecutiveSecretary,
+  other,
+}
+
 export interface SacramentMeeting {
   id: number;
   date: string;
@@ -34,3 +42,13 @@ export interface SacramentMeeting {
 }
 
 export type NewMeeting = Omit<SacramentMeeting, 'id'>;
+
+export interface Account {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  createdAt: string;
+}
+
+export type NewAccount = Omit<Account, 'id' | 'createdAt'>;

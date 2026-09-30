@@ -1,10 +1,11 @@
 import CreateNewMeeting from '@/components/CreateNewMeeting';
-import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: 'Sacrament Meeting Tracker - Add a Meeting',
-  description: 'Add a Meeting to the Database',
-};
+export const metadata = createPageMetadata(
+  'Add a Meeting',
+  'Create a sacrament meeting agenda for your ward.',
+  true,
+);
 export const dynamic = 'force-dynamic';
 
 export default function NewMeetingPage() {

@@ -4,9 +4,13 @@ import { deleteMeeting } from '@/lib/actions';
 
 interface MeetingCardProps {
   meeting: SacramentMeeting;
+  isAuthenticated: boolean;
 }
 
-export default function MeetingCard({ meeting }: MeetingCardProps) {
+export default function MeetingCard({
+  meeting,
+  isAuthenticated,
+}: MeetingCardProps) {
   const url = `/meetings/${meeting.id}`;
 
   return (
@@ -28,21 +32,25 @@ export default function MeetingCard({ meeting }: MeetingCardProps) {
           See Meeting Details
         </Link>
 
-        <Link
-          href={`/meetings/${meeting.id}/edit`}
-          className="mt-3 block w-full rounded-[0.625rem] border border-[var(--church-blue-dark)] bg-[var(--church-blue-light)] px-4 py-3 text-center font-semibold text-[var(--church-blue-dark)] hover:bg-[var(--church-blue-dark)] hover:!text-white hover:no-underline hover:opacity-100"
-        >
-          Edit Meeting
-        </Link>
-
-        <form action={deleteMeeting.bind(null, meeting.id)}>
-          <button
-            type="submit"
-            className="mt-3 w-full rounded-[0.625rem] border border-[#991b1b] bg-[#991b1b] px-4 py-3 font-semibold text-white hover:bg-[#fecaca] hover:!font-bold hover:!text-black hover:opacity-100"
+        {isAuthenticated && (
+          <Link
+            href={`/meetings/${meeting.id}/edit`}
+            className="mt-3 block w-full rounded-[0.625rem] border border-[var(--church-blue-dark)] bg-[var(--church-blue-light)] px-4 py-3 text-center font-semibold text-[var(--church-blue-dark)] hover:bg-[var(--church-blue-dark)] hover:!text-white hover:no-underline hover:opacity-100"
           >
-            Delete Meeting
-          </button>
-        </form>
+            Edit Meeting
+          </Link>
+        )}
+
+        {isAuthenticated && (
+          <form action={deleteMeeting.bind(null, meeting.id)}>
+            <button
+              type="submit"
+              className="mt-3 w-full rounded-[0.625rem] border border-[#991b1b] bg-[#991b1b] px-4 py-3 font-semibold text-white hover:bg-[#fecaca] hover:!font-bold hover:!text-black hover:opacity-100"
+            >
+              Delete Meeting
+            </button>
+          </form>
+        )}
       </div>
     </article>
   );

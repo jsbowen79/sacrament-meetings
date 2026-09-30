@@ -3,6 +3,7 @@ import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { redirect } from 'next/navigation';
+import { auth } from '@/lib/auth';
 
 export type State = {
   errors?: {
@@ -244,6 +245,11 @@ export async function updateMeeting(
 }
 
 export async function deleteMeeting(id: number): Promise<void> {
+  const session = await auth();
+  if (!session) {
+    redirect('/login');
+  }
+
   try {
     await sql`DELETE FROM meetings WHERE id = ${id}`;
   } catch (error) {

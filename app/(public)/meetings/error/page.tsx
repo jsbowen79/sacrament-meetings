@@ -1,9 +1,10 @@
-import type { Metadata } from 'next';
+import { createPageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: 'Sacrament Meeting Tracker - Failure to add',
-  description: 'The meeting was not added to the Database',
-};
+export const metadata = createPageMetadata(
+  'Meeting Not Added',
+  'The sacrament meeting could not be added. Review the details and try again.',
+  true,
+);
 
 export default function MeetingAdded() {
   return (

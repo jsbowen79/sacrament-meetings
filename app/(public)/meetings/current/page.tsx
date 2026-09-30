@@ -1,12 +1,12 @@
-import type { Metadata } from 'next';
 import MeetingDetail from '@/components/MeetingDetail';
 import Image from 'next/image';
 import { getCurrentMeeting } from '@/lib/meetings-db';
+import { createPageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
-  title: 'Sacrament Meeting Tracker - Current Meeting',
-  description: "Retrieve the Current or next meeting's information.",
-};
+export const metadata = createPageMetadata(
+  'Current Meeting',
+  'View the current or next sacrament meeting agenda.',
+);
 
 export const dynamic = 'force-dynamic';
 
